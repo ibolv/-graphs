@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8" />
+<title>Графы</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+    <div class="tabs">
+        <ul class="tabs__caption">
+          <li class="active">Задание A</li>
+          <li>Задание B</li>
+          <li>Задание C и E</li>
+          <li>Задание D</li>
+          <li>Задание F</li>
+          <li>Задание L</li>
+        </ul>
+        
+        <div class="tabs__content active">
+           <h2><a name = "paragraph1">Матрица смежности</a></h2>
+           <div class="even">
+            <p align="justify">Матрица смежности, как и матрица инцидентности, позволяет установить множество вершин, 
+            соседних с заданной (то есть рассматриваемой в конкретной задаче), не прибегая к полному просмотру всей 
+            матрицы. Матрицы смежности обычно представляются двумерным массивом размера 
+            <span class="formula"><em>n</em>&nbsp;x&nbsp;<em>n</em></span>, 
+            где <em>n</em> - число вершин графа.</p>
+            </div>
+            <div class="odd">
+                <p align="justify"><strong><em>Матрица смежности</em></strong> <em>S</em> - это квадратная матрица, в 
+                которой и число строк, и число столбцов равно <em>n</em> - числу вершин графа. В ячейки матрицы смежности 
+                записываются некоторые числа в зависимости от того, соединены соответствующие вершины рёбрами или нет, и 
+                от типа графа.</p>
+            </div>
+            <h3>Матрица смежности для неориентированного графа</h3>
+            <div class="even">
+                <p align="justify">Элемент матрицы смежности <span class="formula"><em>s</em><span class="indx">ij</span></span> 
+                неориентированного графа определяется следующим образом:</p>
+                <p align="justify">- равен единице, если вершины <span class="formula"><em>v</em><span class="indx">i</span></span> и 
+                <span class="formula"><em>v</em><span class="indx">j</span></span> смежны;</p>
+                <p align="justify">- равен нулю, если вершины <span class="formula"><em>v</em><span class="indx">i</span></span> и 
+                <span class="formula"><em>v</em><span class="indx">j</span></span> не смежны.</p>
+                <p align="justify">Если для элемента матрицы <span class="formula"><em>v</em><span class="indx">ij</span></span> 
+                имеет место <span class="formula"><em>i</em>&nbsp;=&nbsp;<em>j</em></span>, то есть элемент находится на диагонали, 
+                то этот элемент равен единице, если этот элемент имеет петлю, и нулю, если элемент не имеет петли.</p>
+            </div>
+            <div class="example">
+                <p align="justify"><strong>Пример 1. </strong> Составить <strong>матрицу смежности</strong> для графа, представленного 
+                на рисунке ниже.</p>
+                <img src="img/graphteory24.jpg" width="300" alt="неориентированный граф, для которого требуется составить матрицу смежности">
+                <p align="justify">Ответ.</p>
+                
+                <table border="1" width="240">		    
+                            <tbody><tr>
+                                <td align="center" width="40"><b>V</b></td><td align="center" width="40"><b>1</b></td><td align="center" width="40"><b>2</b></td><td align="center" width="40"><b>3</b></td><td align="center" width="40"><b>4</b></td><td align="center" width="40"><b>5</b></td>  
+                            </tr>			
+                               <tr>
+                                <td align="center"><b>1</b></td><td align="center">0</td><td align="center">1</td><td align="center">1</td><td align="center">0</td><td align="center">0</td>
+                            </tr>
+                            <tr>
+                                <td align="center"><b>2</b></td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">1</td><td align="center">1</td>
+                            </tr>
+                            <tr>
+                                <td align="center"><b>3</b></td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">0</td><td align="center">1</td>
+                            </tr>
+                            <tr>
+                                <td align="center"><b>4</b></td><td align="center">0</td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">0</td>
+                            </tr>
+                            <tr>
+                                <td align="center"><b>5</b></td><td align="center">0</td><td align="center">1</td><td align="center">1</td><td align="center">0</td><td align="center">0</td>
+                            </tr>            			
+                </tbody></table>
+            </div>
+            <p align="justify">Таким образом, <strong><em>матрица смежности</em></strong> неориентированного графа 
+                симметрична относительно главной диагонали.</p>
+            <div class = "matrix">
+                <p align="justify">Введите количество вершин вашего графа</p>
+                Вершины: <input class='rowCount' type='text' value='4' />
+                <button onclick="generate()">generate</button>
+
+            </div>
+        </div>
+        
+        <div class="tabs__content">
+            <h2><a name = "paragraph1">Петли неориентированного графа</a></h2>
+            <div class="even">
+                <p align="justify"><strong><em>Петля</em></strong> в графе — ребро, инцидентное одной и той же вершине.
+                    В некоторых учебниках граф по определению не может иметь петель. Граф без петель — это простой граф.
+                    Встречается и другая терминология. Граф может иметь петли. Если же имеются петли, то это — псевдограф. 
+                    Обычно у петли нет ориентации. Однако в ориентированном графе для отличия от смешанного графа петлям придают ориентацию.</p>
+            </div>
+            <div class="example">
+                <p align="justify"><strong>Пример 1. </strong>Граф, содержащий петлю при вершине 1</p>
+                <img src="img/loop.png" width="300">
+                <p align="justify">Матрица смежности данного графа</p>
+                <table border="1" width="240">		    
+                    <tbody><tr>
+                        <td align="center" width="40"><b>V</b></td><td align="center" width="40"><b>1</b></td><td align="center" width="40"><b>2</b></td><td align="center" width="40"><b>3</b></td><td align="center" width="40"><b>4</b></td><td align="center" width="40"><b>5</b></td><td align="center" width="40"><b>6</b></td>  
+                    </tr>			
+                       <tr>
+                        <td align="center"><b>1</b></td><td align="center">1</td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">1</td><td align="center">0</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>2</b></td><td align="center">1</td><td align="center">0</td><td align="center">1</td><td align="center">0</td><td align="center">1</td><td align="center">0</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>3</b></td><td align="center">0</td><td align="center">1</td><td align="center">0</td><td align="center">1</td><td align="center">1</td><td align="center">0</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>4</b></td><td align="center">0</td><td align="center">0</td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">1</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>5</b></td><td align="center">1</td><td align="center">1</td><td align="center">0</td><td align="center">1</td><td align="center">1</td><td align="center">0</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>6</b></td><td align="center">0</td><td align="center">0</td><td align="center">0</td><td align="center">1</td><td align="center">0</td><td align="center">0</td>
+                    </tr>             			
+                </tbody></table>
+            </div>
+            <div class = "loop">
+                <p align="justify">Введите количество вершин вашего графа</p>
+                Вершины: <input class='rowCount' type='text' value='4'/>
+                <button onclick="generate()">generate</button>
+            </div>
+        </div>
+
+        <div class="tabs__content">
+            <h2><a name = "paragraph1">Список ребер</a></h2>
+            <div class="even">
+                <p align="justify"> В <strong><em>списке рёбер</em></strong> в каждой строке записываются две смежные вершины и вес соединяющего их ребра (для взвешенного графа).</p>
+                    <p align="justify">Количество строк в списке ребер всегда должно быть равно величине, получающейся в результате сложения ориентированных рёбер с удвоенным количеством неориентированных рёбер.</p>
+            </div>
+            <div class="example">
+                <p align="justify"><strong>Пример.</strong>Простой неориентированный граф</p>
+                <img src="img/graphteory24.jpg" width="300">	 
+                <div style="clear: left"></div>
+                <p class="leftstr">Матрица смежности данного графа</p> 
+                <p class="rightstr">Представление графа в виде списка ребер</p>  
+                <div style="clear: left"></div>
+                <table border="1" width="240" class="leftstr">	    
+                    <tbody><tr>
+                        <td align="center" width="40"><b>V</b></td><td align="center" width="40"><b>1</b></td><td align="center" width="40"><b>2</b></td><td align="center" width="40"><b>3</b></td><td align="center" width="40"><b>4</b></td><td align="center" width="40"><b>5</b></td>  
+                    </tr>			
+                       <tr>
+                        <td align="center"><b>1</b></td><td align="center">0</td><td align="center">1</td><td align="center">1</td><td align="center">0</td><td align="center">0</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>2</b></td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">1</td><td align="center">1</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>3</b></td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">0</td><td align="center">1</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>4</b></td><td align="center">0</td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">0</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>5</b></td><td align="center">0</td><td align="center">1</td><td align="center">1</td><td align="center">0</td><td align="center">0</td>
+                    </tr>            			
+                    </tbody></table>
+
+                <table border="1" width="40" class="rightstr"> 
+                    <tbody>
+                        <tr>
+                        <td align="center"><b>V1</b></td><td align="center"><b>V2</b></td>
+                    </tr>			
+                       <tr>
+                        <td align="center">1</td><td align="center">2</td>
+                    </tr>
+                    <tr>
+                        <td align="center">1</td><td align="center">3</td>
+                    </tr>
+                    <tr>
+                        <td align="center">2</td><td align="center">1</td>
+                    </tr>
+                    <tr>
+                        <td align="center">2</td><td align="center">4</td>
+                    </tr>
+                    <tr>
+                        <td align="center">2</td><td align="center">5</td>
+                    </tr>
+                    <tr>
+                        <td align="center">3</td><td align="center">1</td>
+                    </tr>
+                    <tr>
+                        <td align="center">3</td><td align="center">5</td>
+                    </tr>
+                    <tr>
+                        <td align="center">4</td><td align="center">2</td>
+                    </tr>
+                    <tr>
+                        <td align="center">5</td><td align="center">2</td>
+                    </tr>
+                    <tr>
+                        <td align="center">5</td><td align="center">3</td>
+                    </tr>
+                </tbody></table>
+                <div style="clear: left"></div>
+            </div>
+            <div class = "edge">
+                <p align="justify">Введите количество вершин вашего графа</p>
+                Вершины: <input class='rowCount' type='text' value='4'/>
+                <button onclick="generate()">generate</button>
+            </div>
+        </div>
+
+        <div class="tabs__content">
+            <h2><a name = "paragraph1">Матрица смежности для ориентированного графа</a></h2>
+            <p align="justify">Элемент матрицы смежности <span class="formula"><em>s</em><span class="indx">ij</span></span> 
+                ориентированного графа определяется следующим образом:</p>
+            <p align="justify">- равен единице, если из вершины <span class="formula"><em>v</em><span class="indx">i</span></span> в 
+                вершину <span class="formula"><em>v</em><span class="indx">j</span></span> входит дуга;</p>
+            <p align="justify">- равен нулю, если из вершины <span class="formula"><em>v</em><span class="indx">i</span></span> в 
+                вершину <span class="formula"><em>v</em><span class="indx">j</span></span> дуга не входит.</p>
+            <p align="justify">Как и для неориентированных графов, так и для ориентированных, если для элемента матрицы <span class="formula"><em>v</em><span class="indx">ij</span></span> 
+                имеет место <span class="formula"><em>i</em>&nbsp;=&nbsp;<em>j</em></span>, то есть элемент находится на диагонали, 
+                то этот элемент равен единице, если этот элемент имеет петлю, и нулю, если элемент не имеет петли.</p>
+            <div class="example">
+                    <p align="justify"><strong>Пример.</strong> Составить <strong>матрицу смежности</strong> для графа, представленного на рисунке ниже.</p>
+                    <img src="img/graphteory31.jpg" width="300" alt="ориентированный граф, для которого требуется составить матрицу смежности">
+                    <div style="clear: left"></div>
+                    <p align="justify"  class="leftstr">Матрица смежности.</p>
+                    <p align="justify"  class="rightstr">Ребра.</p>
+                    <div style="clear: left"></div>
+                    <table border="1" width="240" class="leftstr">		    
+                                <tbody><tr>
+                                    <td align="center" width="40"><b>V</b></td><td align="center" width="40"><b>1</b></td><td align="center" width="40"><b>2</b></td><td align="center" width="40"><b>3</b></td><td align="center" width="40"><b>4</b></td><td align="center" width="40"><b>5</b></td>  
+                                </tr>			
+                                   <tr>
+                                    <td align="center"><b>1</b></td><td align="center">0</td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">0</td>
+                                </tr>
+                                <tr>
+                                    <td align="center"><b>2</b></td><td align="center">0</td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">0</td>
+                                </tr>
+                                <tr>
+                                    <td align="center"><b>3</b></td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">0</td><td align="center">0</td>
+                                </tr>
+                                <tr>
+                                    <td align="center"><b>4</b></td><td align="center">0</td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">0</td>
+                                </tr>
+                                <tr>
+                                    <td align="center"><b>5</b></td><td align="center">0</td><td align="center">1</td><td align="center">1</td><td align="center">0</td><td align="center">0</td>
+                                </tr>            			
+                    </tbody></table>
+                    <table border="1" width="40" class="rightstr"> 
+                        <tbody>
+                            <tr>
+                            <td align="center"><b>V1</b></td><td align="center"><b>V2</b></td>
+                        </tr>			
+                           <tr>
+                            <td align="center">1</td><td align="center">3</td>
+                        </tr>
+                        <tr>
+                            <td align="center">2</td><td align="center">1</td>
+                        </tr>
+                        <tr>
+                            <td align="center">2</td><td align="center">2</td>
+                        </tr>
+                        <tr>
+                            <td align="center">2</td><td align="center">4</td>
+                        </tr>
+                        <tr>
+                            <td align="center">2</td><td align="center">5</td>
+                        </tr>
+                        <tr>
+                            <td align="center">3</td><td align="center">5</td>
+                        </tr>
+                    </tbody></table>
+                    <div style="clear: left"></div>
+            </div>
+                <p align="justify">Таким образом, <strong><em>матрица смежности</em></strong> ориентированного графа 
+                    не симметрична.</p>
+                <div class = "edgeGr">
+                    <p align="justify">Введите количество вершин вашего графа</p>
+                    Вершины: <input class='rowCount' type='text' value='4'/>
+                    <button onclick="generate()">generate</button>
+                </div>
+        </div>
+
+        <div class="tabs__content">
+            <h2><a name = "paragraph1">Список ребер</a></h2>
+            <div class="example">
+                <p align="justify"><strong>Пример.</strong>По заданным ребрам построить матрицу смежности этого графа</p>
+                <div style="clear: left"></div>
+                <img src="img/graphteory24.jpg" width="300"  class="leftstr">
+                <p class="rightstr">Представление графа в виде списка ребер</p>  
+                <table border="1" width="40" class="rightstr"> 
+                    <tbody>
+                        <tr>
+                        <td align="center"><b>V1</b></td><td align="center"><b>V2</b></td>
+                    </tr>			
+                       <tr>
+                        <td align="center">1</td><td align="center">2</td>
+                    </tr>
+                    <tr>
+                        <td align="center">1</td><td align="center">3</td>
+                    </tr>
+                    <tr>
+                        <td align="center">2</td><td align="center">4</td>
+                    </tr>
+                    <tr>
+                        <td align="center">2</td><td align="center">5</td>
+                    </tr>
+                    <tr>
+                        <td align="center">3</td><td align="center">5</td>
+                    </tr>
+                </tbody></table>	 
+                <div style="clear: left"></div>
+                <p class="leftstr">Ответ: Матрица смежности данного графа</p> 
+                <div style="clear: left"></div>
+                <table border="1" width="240">	    
+                    <tbody><tr>
+                        <td align="center" width="40"><b>V</b></td><td align="center" width="40"><b>1</b></td><td align="center" width="40"><b>2</b></td><td align="center" width="40"><b>3</b></td><td align="center" width="40"><b>4</b></td><td align="center" width="40"><b>5</b></td>  
+                    </tr>			
+                       <tr>
+                        <td align="center"><b>1</b></td><td align="center">0</td><td align="center">1</td><td align="center">1</td><td align="center">0</td><td align="center">0</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>2</b></td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">1</td><td align="center">1</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>3</b></td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">0</td><td align="center">1</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>4</b></td><td align="center">0</td><td align="center">1</td><td align="center">0</td><td align="center">0</td><td align="center">0</td>
+                    </tr>
+                    <tr>
+                        <td align="center"><b>5</b></td><td align="center">0</td><td align="center">1</td><td align="center">1</td><td align="center">0</td><td align="center">0</td>
+                    </tr>            			
+                    </tbody></table>
+            </div>
+            <div class = "mart">
+                <p align="justify">Ввод ребер:</p>
+                <div class="dynamic_fields">
+                    <div class="example_student">
+                        <div class="table">
+                            <div class="cell"><input class="form-control" type="text" name="name[]"/></div>
+                            <div class="cell"><input class="form-control" type="text" name="name[]"/></div>
+                            <div class="cell">
+                                <button class="js-remove btn btn-danger">Удалить ребро</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="students">
+                        <div class="student">
+                            <div class="table">
+                                <div class="cell"><input class="form-control" type="text" name="name[]"/></div>
+                                <div class="cell"><input class="form-control" type="text" name="name[]"/></div>
+                                <div class="cell">
+                                    <button class="js-remove btn btn-danger">Удалить ребро</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="js-add btn btn-success">Добавить ребро</button>
+                    <button class="js-enter btn btn-success">Найти</button>
+                    </div>
+            </div>
+        </div>
+
+        <div class="tabs__content">
+            <h2><a name = "paragraph1">Степень вершины</a></h2>
+            <p align="justify"><strong>Степень</strong> или <strong>валентность вершины</strong> графа — количество рёбер графа <span class="formula"><em>G</em></span>, инцидентных вершине <span class="formula">x.</span> 
+                При подсчёте степени ребро-петля учитывается дважды.</p>
+                <div class="example">
+                    <p align="justify"><strong>Пример.</strong> Граф, на вершинах которого отмечены степени.</p>
+                    <img src="img/vertex.png" width="300">
+                    <div class = "pow">
+                        <p align="justify">Введите количество вершин вашего графа</p>
+                        Вершины: <input class='rowCount' type='text' value='4'/>
+                        <button onclick="generate()">generate</button>
+                    </div>
+                </div>
+        </div>
+        
+    </div><!-- .tabs-->
+
+      
+</body>
+</html>
